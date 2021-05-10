@@ -1,0 +1,279 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TempoCraft{% endblock %}
+
+{% block stylesheets %} 
+        
+    <!--====== Bootstrap CSS ======-->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    
+    <!--====== Default CSS ======-->
+    <link rel="stylesheet" href="assets/css/default.css">
+    
+    <!--====== Style CSS ======-->
+    <link rel="stylesheet" href="assets/css/style.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="assets/js/vendor/jquery-3.5.1-min.js"></script>
+    <script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/1156a7802b.js" crossorigin="anonymous"></script>
+    <!--====== Bootstrap js ======-->
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap-4.5.0.min.js"></script>
+    
+    <!--====== Plugins js ======-->
+    <script src="assets/js/plugins.js"></script>
+    
+    <!--====== Counter Up js ======-->
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    
+
+    
+    <!--====== Scrolling Nav js ======-->
+    <script src="assets/js/jquery.easing.min.js"></script>
+    <script src="assets/js/scrolling-nav.js"></script>
+    
+    <!--====== wow js ======-->
+    <script src="assets/js/wow.min.js"></script>
+    
+    <!--====== Particles js ======-->
+    <script src="assets/js/particles.min.js"></script>
+    
+    <!--====== Main js ======-->
+    <script src="assets/js/main.js"></script>
+{% endblock %}
+    {% block body %}
+    <div class="preloader">
+        <div class="loader">
+            <div class="ytp-spinner">
+                <div class="ytp-spinner-container">
+                    <div class="ytp-spinner-rotator">
+                        <div class="ytp-spinner-left">
+                            <div class="ytp-spinner-circle"></div>
+                        </div>
+                        <div class="ytp-spinner-right">
+                            <div class="ytp-spinner-circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--====== PRELOADER PART ENDS ======-->
+    
+    <!--====== HEADER PART START ======-->
+    
+    <header class="header-area">
+        <div class="navbar-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="{{ path('main') }}">
+                                <img src="assets/images/logo.png" alt="Logo" style="width: 110px; height: auto;">
+                            </a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ml-auto">
+                                    <li class="nav-item active">
+                                        <a class="page-scroll" href="#home">Accueil</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('card.list') }}">Listes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="page-scroll" href="#about">A propos</a>
+                                    </li>
+                                    {#<li class="nav-item">
+                                        <a class="page-scroll"  href="#soutenir">Soutenir</a>
+                                    </li>#}
+                                </ul>
+                            </div> <!-- navbar collapse -->
+                            {% if app.user is null %}
+                            <div class="navbar-btn d-none d-sm-inline-block">
+                                <a class="success-btn" data-scroll-nav="0" href="{{ path('app_login') }}" rel="nofollow">Se connecter</a>
+                            </div>
+                            <div class="navbar-btn d-none d-sm-inline-block ml-2">
+                                <a class="main-btn" data-scroll-nav="0" href="{{ path('app_register') }}" rel="nofollow">S'inscrire</a>
+                            </div>
+                            {% elseif is_granted('ROLE_ADMIN') == true %}
+                            <div class="navbar-btn d-none d-sm-inline-block ml-2">
+                                <a class="success-btn" data-scroll-nav="0" href="/admin" rel="nofollow">Administration</a>
+                            </div>
+                            {% endif %}
+                        </nav> <!-- navbar -->
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- navbar area -->
+        
+        <div id="home" class="header-hero bg_cover" style="background-image: url(assets/images/banner-bg.svg)">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="header-hero-content text-center">
+                            <h3 class="header-sub-title wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.2s">TempoCraft</h3>
+                            <h2 class="header-title wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.5s">Retrouvez les crafts de Temporis V</h2>
+                            <p class="text wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.8s">TempoCraft dispose aussi d'un <a href="https://discord.gg/ZWEBAHtkgN">serveur Discord</a> pour s'abonner et recevoir de notifications à chaque nouvelle recette pour un item !</p>
+                            <a href="{{ path('card.list') }}" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Accéder à la liste</a>
+                        </div> <!-- header hero content -->
+                    </div>
+                </div> <!-- row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="header-hero-image text-center wow fadeIn" data-wow-duration="1.3s" data-wow-delay="1.4s">
+                            <img src="assets/images/header-hero.png" alt="hero">
+                        </div> <!-- header hero image -->
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+            <div id="particles-1" class="particles"></div>
+        </div> <!-- header hero -->
+    </header>
+    
+    <!--====== HEADER PART ENDS ======-->
+    <section id="scoreboard" class="about-area pt-70">
+        <div class="about-shape-2">
+            <img src="assets/images/about-shape-2.svg" alt="shape">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 order-lg-last">
+                    <div class="about-content mt-50 wow fadeInLeftBig" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <div class="section-title">
+                            <div class="line"></div>
+                            <h3 style="color: white" class="title">Top 3 contributeurs du jour</h3>
+                        </div> <!-- section title -->
+                        <p class="text">
+                            <ul class="list-group">
+                                {% for user in topUsers %}
+                                    <li style="color:white;"><span style="font-size: 3em;">{{ user.pseudo }}</span> <span style="font-size: 2em;">- {{ user.nbVerified }} crafts vérifiés</span></li>
+                                {% endfor %}
+                            </ul>
+                        </p>
+                    </div> <!-- about content -->
+                </div>
+                <div class="col-lg-6 order-lg-first">
+                    <div class="about-image text-center mt-50 wow fadeInRightBig" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <img src="assets/images/stonks.png" alt="scoreboard">
+                    </div> <!-- about image -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== VIDEO COUNTER PART START ======-->
+    
+    <section id="about" class="video-counter pt-70" style="position:relative;z-index: 10;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="counter-wrapper mt-50 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.8s">
+                        <div class="counter-content">
+                            <div class="section-title">
+                                <div class="line"></div>
+                                <h3 class="title" style="color:white !important;">Fun facts <span> à propos de ce site</span></h3>
+                            </div> <!-- section title -->
+                        </div> <!-- counter content -->
+                        <div class="row no-gutters">
+                            <div class="col-4">
+                                <div class="single-counter counter-color-1 d-flex align-items-center justify-content-center">
+                                    <div class="counter-items text-center">
+                                        <span class="count"><span class="counter">{{ visitCount }}</span></span>
+                                        <p class="text">Visites uniques</p>
+                                    </div>
+                                </div> <!-- single counter -->
+                            </div>
+                            <div class="col-4">
+                                <div class="single-counter counter-color-2 d-flex align-items-center justify-content-center">
+                                    <div class="counter-items text-center">
+                                        <span class="count"><span class="counter">{{ userCount }}</span></span>
+                                        <p class="text">Inscrits</p>
+                                    </div>
+                                </div> <!-- single counter -->
+                            </div>
+                            <div class="col-4">
+                                <div class="single-counter counter-color-3 d-flex align-items-center justify-content-center">
+                                    <div class="counter-items text-center">
+                                        <span class="count"><span class="counter">{{ craftCount }}</span></span>
+                                        <p class="text">Crafts</p>
+                                    </div>
+                                </div> <!-- single counter -->
+                            </div>
+                        </div> <!-- row -->
+                    </div> <!-- counter wrapper -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+    
+    <!--====== SOUTENIR ======-->
+
+    {#<section id="soutenir" class="about-area pt-70">
+        <div class="about-shape-2">
+            <img src="assets/images/about-shape-2.svg" alt="shape">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 order-lg-last">
+                    <div class="about-content mt-50 wow fadeInLeftBig" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <div class="section-title">
+                            <div class="line"></div>
+                            <h3 class="title">Soutenir TempoCraft <span> avec un don</span></h3>
+                        </div> <!-- section title -->
+                        <p class="text">Le don servira simplement à couvrir les frais d'hébergement du site et de me récompenser pour le développement produit !</p>
+                        <a href="https://paypal.me/werferlife" class="main-btn">Soutenir</a>
+                    </div> <!-- about content -->
+                </div>
+                <div class="col-lg-6 order-lg-first">
+                    <div class="about-image text-center mt-50 wow fadeInRightBig" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <img src="assets/images/paypal.png" alt="paypal">
+                    </div> <!-- about image -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>#}
+
+    <!--====== FOOTER PART START ======-->
+    
+    <footer id="footer" class="footer-area pt-120">
+        <div class="container">
+            <div class="subscribe-area wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="subscribe-content mt-45">
+                            <h2 class="subscribe-title">Rejoignez le Discord <span>et soyez au courant des nouveautés</span></h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="display: flex;align-items: center;">
+                        <div class="text-center">
+                            <a href="https://discord.gg/ZWEBAHtkgN" target="_blank">
+                                <button type="button" class="about main-btn">
+                                    <img src="assets/images/discord.png" alt="Discord">
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                 </div> <!-- row -->
+            </div> <!-- subscribe area -->
+            <div class="footer-widget pb-100">
+                Certaines illustrations sont la propriété d'Ankama Studio et de Dofus - Tous droits réservés.
+            </div> <!-- footer widget -->
+        </div> <!-- container -->
+        <div id="particles-2"></div>
+    </footer>
+    
+    <!--====== FOOTER PART ENDS ======-->
+    
+    <!--====== BACK TOP TOP PART START ======-->
+
+    <a href="#" class="back-to-top"><i class="fas fa-chevron-up"></i></a>
+{% endblock %}

@@ -1,0 +1,52 @@
+body {
+    background-color: #060A15 !important;
+    background: no-repeat center center fixed;
+    background-size: cover;
+    background-image: url('/assets/images/background.jpg');
+}
+
+#content {
+    background-color: rgba(50, 60, 80, .99);
+    max-width: 90%;
+    margin: auto;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    border-radius: 1em;
+    overflow-x: auto;
+}
+
+main {
+    background-color: rgba(50, 60, 80, .99);
+    max-width: 90%;
+    margin: auto;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    border-radius: 1em;
+}
+
+.jumbotron {
+    border-radius: 1em;
+}
+
+.select2-container {
+    color: black;
+}
+
+button ,
+.custom-select,
+input {
+    border-radius: 5px !important;
+}
+
+#craftList_paginate ul,
+#itemList_paginate ul,
+#cardList_paginate ul,
+#levelList_paginate ul {
+    justify-content: center;
+}
+
+td {
+    vertical-align: middle !important;
+}

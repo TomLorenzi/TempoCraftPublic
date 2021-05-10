@@ -1,0 +1,6 @@
+index:
+    path: /
+    controller: App\Controller\MainController::index
+dashboard:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index

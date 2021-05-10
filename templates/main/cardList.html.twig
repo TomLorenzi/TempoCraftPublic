@@ -1,0 +1,180 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TempoCraft - Liste des cartes{% endblock %}
+
+{% block stylesheets %}      
+    <!--====== Bootstrap CSS ======-->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-datatable.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/custom/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{{ path('main') }}">TempoCraft</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse navbarNav" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('main') }}">Accueil</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ path('card.list') }}">Liste des cartes<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('craft.list') }}">Liste des crafts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('item.list') }}">Liste des Items</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('level.list') }}">Liste des Niveaux</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('user.list') }}">Classement</a>
+      </li>
+    </ul>
+  </div>
+  <div class="collapse navbar-collapse navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-2">
+                <a href="{{ path('craft.test') }}"><button type="button" class="btn btn-success">Tester une combinaison</button></a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('craft.new') }}"><button type="button" class="btn btn-primary">Proposer un craft</button></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div id="content" class="clearer col-sm-12 mt-2">
+  <button id="showFilters" class="btn btn-sm btn-primary mb-2" type="button">Afficher les filtres >></button>
+  <div id="filters" class="ml-1 mb-2 row d-none">
+    <span class="mr-1">Catégorie :</span>
+    <select id="selectCat">
+      <option value="all">Toute les catégories</option>
+      <option value="Alchi">Alchi</option>
+      <option value="Bijoutier">Bijoutier</option>
+      <option value="Boss">Boss</option>
+      <option value="Bricoleur">Bricoleur</option>
+      <option value="Bucheron">Bucheron</option>
+      <option value="Chasseur">Chasseur</option>
+      <option value="Cordonier">Cordonier</option>
+      <option value="Façonneur">Façonneur</option>
+      <option value="Forgeron">Forgeron</option>
+      <option value="Forgeron">Forgeron</option>
+      <option value="Mineur">Mineur</option>
+      <option value="Monstre">Monstre</option>
+      <option value="Paysan">Paysan</option>
+      <option value="Pêcheur">Pêcheur</option>
+      <option value="Sculpteur">Sculpteur</option>
+      <option value="Spécial">Spécial</option>
+      <option value="Tailleur">Tailleur</option>
+    </select>
+    <span class="ml-1 mr-1">Type :</span>
+    <select id="selectType">
+      <option value="all">Tout les types</option>
+      <option value="1">Trèfle</option>
+      <option value="2">Coeur</option>
+      <option value="3">Pique</option>
+      <option value="4">Carreau</option>
+      <option value="5">Bonus</option>
+    </select>
+    <span class="ml-1 mr-1">Niveaux :</span>
+    <select id="fromLvl">
+      <option value="1" selected>1</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
+      <option value="60">60</option>
+      <option value="70">70</option>
+      <option value="80">80</option>
+      <option value="90">90</option>
+      <option value="100">100</option>
+      <option value="110">110</option>
+      <option value="120">120</option>
+      <option value="130">130</option>
+      <option value="140">140</option>
+      <option value="150">150</option>
+      <option value="160">160</option>
+      <option value="170">170</option>
+      <option value="180">180</option>
+      <option value="190">190</option>
+      <option value="200">200</option>
+    </select>
+    <span class="ml-1 mr-1">à</span>
+    <select id="toLvl">
+      <option value="1">1</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
+      <option value="60">60</option>
+      <option value="70">70</option>
+      <option value="80">80</option>
+      <option value="90">90</option>
+      <option value="100">100</option>
+      <option value="110">110</option>
+      <option value="120">120</option>
+      <option value="130">130</option>
+      <option value="140">140</option>
+      <option value="150">150</option>
+      <option value="160">160</option>
+      <option value="170">170</option>
+      <option value="180">180</option>
+      <option value="190">190</option>
+      <option value="200" selected>200</option>
+    </select>
+    <span class="ml-1">|</span>
+    <input type="checkbox" id="golden" class="ml-2 mb-1 mr-1">
+    Carte dorée
+    |
+    <input type="checkbox" id="craftAvailable" class="ml-2 mb-1 mr-1">
+    Contient des crafts
+    <button id="resetBtn" class="ml-2 btn btn-sm btn-danger">Reset</button>
+    <button id="hideFilters" class="btn btn-sm btn-primary ml-2" type="button"><< Cacher les filters</button>
+  </div>
+    <table id="cardList" class="table d-table table-hover" style="max-width:100%!important;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">
+                    Image
+                </th>
+                <th scope="col">
+                    Nom
+                </th>
+                <th scope="col">
+                    Type
+                </th>
+                <th scope="col">
+                    Level
+                </th>
+                <th scope="col">
+                    Catégorie
+                </th>
+                <th scope="col">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery-datatable.min.js"></script>
+    <script src="/assets/js/datatable-bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="/assets/js/bootstrap-4.5.0.min.js"></script>
+    <script src="/assets/js/cardlist.js"></script>
+{% endblock %}

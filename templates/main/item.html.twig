@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TempoCraft - {{ item.name }}{% endblock %}
+
+{% block stylesheets %}      
+    <!--====== Bootstrap CSS ======-->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-datatable.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/custom/main.css">
+{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+  <a class="navbar-brand" href="{{ path('main') }}">TempoCraft</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse navbarNav" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('main') }}">Accueil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('card.list') }}">Liste des cartes<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('craft.list') }}">Liste des crafts</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ path('item.list') }}">Liste des Items<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('level.list') }}">Liste des Niveaux</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('user.list') }}">Classement</a>
+      </li>
+    </ul>
+  </div>
+  <div class="collapse navbar-collapse navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-2">
+                <a href="{{ path('craft.test') }}"><button type="button" class="btn btn-success">Tester une combinaison</button></a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('craft.new') }}"><button type="button" class="btn btn-primary">Proposer un craft</button></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main" class="container">
+    <div class="jumbotron">
+        <h1>{{ item.name }}</h1>
+        <img src="{{ item.imageUrl }}" style="width: 80px;"></img>
+        <p>Description : {{ item.description|default('Aucune description') }}</p>
+        {#<div><a class="btn btn-lg btn-primary" href="" role="button">Voir les crafts liés &raquo;</a></div>#}
+        <div class="mt-2 mb-2"><a class="btn btn-lg btn-secondary" href="{{ path('item.list') }}" role="button">&laquo; Revenir à la liste</a></div>
+        <h2 class="mt-2 mb-2">Craft associés</h2>
+        <table id="craftList" class="table d-table table-hover" style="max-width:100%!important;">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">
+                        Cartes
+                    </th>
+                    <th scope="col">
+                        Créateur
+                    </th>
+                    <th scope="col">
+                        Votes
+                    </th>
+                    <th scope="col">
+                        Reports
+                    </th>
+                    <th scope="col">
+                        Vérifié
+                    </th>
+                    <th scope="col">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://kit.fontawesome.com/1156a7802b.js" crossorigin="anonymous"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery-datatable.min.js"></script>
+    <script src="/assets/js/datatable-bootstrap.min.js"></script>
+    <script src="/assets/js/bootstrap-4.5.0.min.js"></script>
+    <script>
+      var Craft = {
+        itemId: {{ item.id|raw }}
+      };
+    </script>
+    <script src="/assets/js/item/craftList.js"></script>
+{% endblock %}

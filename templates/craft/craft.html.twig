@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TempoCraft - Craft {{ craft.item.name }}{% endblock %}
+
+{% block stylesheets %}      
+    <!--====== Bootstrap CSS ======-->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-datatable.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/custom/main.css">
+{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+  <a class="navbar-brand" href="{{ path('main') }}">TempoCraft</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse navbarNav" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('main') }}">Accueil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('card.list') }}">Liste des cartes</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ path('craft.list') }}">Liste des crafts<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('item.list') }}">Liste des Items</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('level.list') }}">Liste des Niveaux</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('user.list') }}">Classement</a>
+      </li>
+    </ul>
+  </div>
+  <div class="collapse navbar-collapse navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-2">
+                <a href="{{ path('craft.test') }}"><button type="button" class="btn btn-success">Tester une combinaison</button></a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('craft.new') }}"><button type="button" class="btn btn-primary">Proposer un craft</button></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main" class="container">
+    <div class="jumbotron">
+        {% set score = craft.upvotes|length - craft.reports|length %}
+        {% if score < 0 %}
+          {% set scoreColor = 'red'%}
+          {% set sign = '' %}
+        {% else %}
+          {% set scoreColor = 'lightgreen'%}
+          {% set sign = '+' %}
+        {% endif %}
+        <h1>{{ craft.item.name }} <span style="color:{{ scoreColor }};">{{ sign }}{{ score }}</span></h1>
+          {% if craft.isVerified %}
+            Ce craft est validé <i class="far fa-check-circle fa-2x" style="color:#00BFFF"></i>
+          {% endif %}
+        <img src="{{ craft.item.imageUrl }}" style="width: 80px;"></img>
+        <div class="row">
+          {% for card in craft.cards %}
+            <div class="col">
+              <p>
+                <a href="/card/{{ card.id }}" target="_blank"><img src="/assets/images/cards/{{ card.imageId }}.svg" style="width:150px; display:block; margin: auto;"></img></a>
+                <div class="text-center">{{ card.name }}</div>
+              </p>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div><a class="btn btn-lg btn-primary" href="/item/{{ craft.item.id }}" role="button">Voir les autres crafts de l'item &raquo;</a></div>
+            <div class="mt-2"><a class="btn btn-lg btn-secondary" href="{{ path('craft.list') }}" role="button">&laquo; Revenir à la liste</a></div>
+          </div>
+          <div class="col-6">
+          {% set alreadyVoted = false %}
+          {% for upvote in craft.upvotes %}
+            {% if upvote.user == app.user %}
+              {% set alreadyVoted = true %}
+            {% endif %}
+          {% endfor %}
+          {% if not alreadyVoted %}
+            {% for report in craft.reports %}
+              {% if report.user == app.user %}
+                {% set alreadyVoted = true %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          {% if app.user is not null and not alreadyVoted and app.user != craft.creator and not craft.isVerified and not craft.isFalse %}
+            <div class="text-right"><a class="btn btn-lg btn-success" href="/craft/add/vote/{{ craft.id }}" role="button">Voter</a></div>
+            <div class="text-right mt-2"><a class="btn btn-lg btn-danger" href="/craft/add/report/{{ craft.id }}" role="button">Report</a></div>
+            <div class="text-right mt-2">Attention vous ne pouvez voter ou report qu'une seule fois, veuillez donc faire attention à votre clic !</div>
+          {% else %}
+            <div class="text-right"><i>Vous avez déjà vote ou report ce craft ou vous n'êtes pas connecté</i></div>
+            <div class="text-right"><i>Il est d'ailleurs impossible de voter ou report son propre craft ou un craft validé</i></div>
+            {% if app.user is null %}
+              <div class="text-right mt-2"><a class="btn btn-lg btn-success" href="{{ path('app_login') }}" type="button">Se connecter</a></div>
+            {% endif %}
+          {% endif %}
+
+          {% if is_granted('ROLE_ADMIN') and not craft.isVerified and not craft.isFalse %}
+            <div class="text-right mt-2"><a class="btn btn-lg btn-success" href="/craft/validate/{{ craft.id }}" type="button">Valider le craft</a></div>
+            <div class="text-right mt-2"><a class="btn btn-lg btn-danger" href="/craft/false/{{ craft.id }}" type="button">Noter comme faux</a></div>
+          {% endif %}
+          </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://kit.fontawesome.com/1156a7802b.js" crossorigin="anonymous"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery-datatable.min.js"></script>
+    <script src="/assets/js/bootstrap-4.5.0.min.js"></script>
+    <script src="/assets/js/datatable-bootstrap.min.js"></script>
+{% endblock %}

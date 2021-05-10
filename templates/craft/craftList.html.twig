@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TempoCraft - Liste des crafts{% endblock %}
+
+{% block stylesheets %}      
+    <!--====== Bootstrap CSS ======-->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-datatable.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/custom/main.css">
+{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{{ path('main') }}">TempoCraft</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse navbarNav" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('main') }}">Accueil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('card.list') }}">Liste des cartes</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ path('craft.list') }}">Liste des crafts<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('item.list') }}">Liste des Items</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('level.list') }}">Liste des Niveaux</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('user.list') }}">Classement</a>
+      </li>
+    </ul>
+  </div>
+  <div class="collapse navbar-collapse navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-2">
+                <a href="{{ path('craft.test') }}"><button type="button" class="btn btn-success">Tester une combinaison</button></a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('craft.new') }}"><button type="button" class="btn btn-primary">Proposer un craft</button></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div id="content" class="clearer col-sm-12 mt-2">
+  <button id="showFilters" class="btn btn-sm btn-primary mb-2" type="button">Afficher les filtres >></button>
+  <div id="filters" class="ml-1 mb-2 row d-none">
+    <span class="ml-1 mr-1">Niveaux :</span>
+    <select id="fromLvl">
+      <option value="1" selected>1</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
+      <option value="60">60</option>
+      <option value="70">70</option>
+      <option value="80">80</option>
+      <option value="90">90</option>
+      <option value="100">100</option>
+      <option value="110">110</option>
+      <option value="120">120</option>
+      <option value="130">130</option>
+      <option value="140">140</option>
+      <option value="150">150</option>
+      <option value="160">160</option>
+      <option value="170">170</option>
+      <option value="180">180</option>
+      <option value="190">190</option>
+      <option value="200">200</option>
+    </select>
+    <span class="ml-1 mr-1">à</span>
+    <select id="toLvl">
+      <option value="1">1</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
+      <option value="60">60</option>
+      <option value="70">70</option>
+      <option value="80">80</option>
+      <option value="90">90</option>
+      <option value="100">100</option>
+      <option value="110">110</option>
+      <option value="120">120</option>
+      <option value="130">130</option>
+      <option value="140">140</option>
+      <option value="150">150</option>
+      <option value="160">160</option>
+      <option value="170">170</option>
+      <option value="180">180</option>
+      <option value="190">190</option>
+      <option value="200" selected>200</option>
+    </select>
+    <button id="resetBtn" class="ml-2 btn btn-sm btn-danger">Reset</button>
+    <button id="hideFilters" class="btn btn-sm btn-primary ml-2" type="button"><< Cacher les filters</button>
+    </div>
+    <table id="craftList" class="table d-table table-hover" style="max-width:100%!important;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">
+                    Item
+                </th>
+                <th scope="col">
+                    Cartes
+                </th>
+                <th scope="col">
+                    Level
+                </th>
+                <th scope="col">
+                    Créateur
+                </th>
+                <th scope="col">
+                    Votes
+                </th>
+                <th scope="col">
+                    Reports
+                </th>
+                <th scope="col">
+                    Vérifié
+                </th>
+                <th scope="col">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://kit.fontawesome.com/1156a7802b.js" crossorigin="anonymous"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery-datatable.min.js"></script>
+    <script src="/assets/js/datatable-bootstrap.min.js"></script>
+    <script src="/assets/js/bootstrap-4.5.0.min.js"></script>
+    <script src="/assets/js/craft/craftList.js"></script>
+{% endblock %}
